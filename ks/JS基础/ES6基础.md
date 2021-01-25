@@ -1,7 +1,7 @@
 ## ES6文档学习
 ### let 和const
 ##### ES6中引入了这两种声明变量的形式，和之前var声明变量的区别
-- var声明的变量是除了函数作用域和全局作用域的限定，并没有块级作用域的概念，let和const声明的变量是有快级作用域的概念的
+- var声明的变量是除了函数作用域和全局作用域的限定，并没有块级作用域的概念，let和const声明的变量是有块级作用域的概念的
 
     if(true) {
         let a = 1;
@@ -58,7 +58,6 @@
 #### proxy是什么
 Proxy本质就是一个代理器，给目标对象添加一层拦截器，用来修改某些默认行为(比如：属性的获取，修改等)
 - 目前Proxy支持多种拦截操作；要使得Proxy起作用，必须针对Proxy实例（上例是proxy对象）进行操作，而不是针对目标对象（上例是空对象）进行操作。
-
 #### proxy怎么用
 ES6提供了一个构造函数Proxy,支持的拦截操作有13种
 ```js
@@ -97,7 +96,7 @@ MVVM框架，数据是双向绑定的，当数据发现变化，需要同步到�
 - proxy可以监听数组的变化，和整个对象的变化
 
 ### Reflect:
-什么东西：Reflect是ES6提供的一个对象；
+> 什么东西：Reflect是ES6提供的一个对象
 作用1：对Object对象的一个扩展，将一些属于语言层面上面的属性和方法(Object.defineProperty等)放到了Reflect,使得Object对象变得更加干净
 作用2：对Object中一些操作函数化，比如：delete obj.a  => Reflect.deleteProperty(obj,a)
 使用：
@@ -143,6 +142,40 @@ function getArea(shape, options) {
 getArea(shapeType.triangle, {width: 100, height: 100});
 ```
 
+
+### 箭头函数
+#### this指向问题；
+### ES5中 this永远指向最后调用它的那个对象；
+```js
+var name = "window";
+var a = {
+    name : null,
+    fn : function () {
+        console.log(this.name); 
+    }
+}
+var f = a.fn;
+f(); // console.log(window);
+```
+### ES6中 箭头函数的指向；
+> 箭头函数本身不能绑定this；没有arguments对象；不能当做构造函数，没有propertype对象；
+
+- 箭头函数本身没有this，会引用外层函数或者对象的作用域。
+- 箭头函数本身没有this对象，会沿着作用域链去查找this绑定的对象；是基于作用域链去找this对象;
+- 箭头函数本身没有this对象，所以谈不上用call,apply,bind来改变this指向；
+### 匿名函数的指向；
+匿名函数的指向window，在严格模式下会指向undfind;
+### this这个对象
+调用函数时允许不同的上下文进行复用函数，每个函数被调用时都会获取到两个特殊的变量this,arguments;
+
+#### 作用域链&闭包
+- 每个函数执行都有个上下文，上下文保存着函数执行保存的变量等信息；
+- 作用域链包装对执行环境有权的访问和变动的有序获取；
+- 变量对象VO存储：形参/变量/函数声明；
+
+#### 构造函数
+- 实例化构造函数可以创建对象
+- 构造函数的this指向的是实例化构造函数自己
 
 ### class
 class某一种程度理解为，就是一个原型对象的类的表现，也有constructor的属性。

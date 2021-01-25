@@ -5,6 +5,7 @@
 2. 手写apply call bind
 
 考点： apply bind call真正理解内涵，显示改变函数作用域， fn.call(context, ...);
+重点：
 
 ### new
 已总结 实现new关键字
