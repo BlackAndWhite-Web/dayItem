@@ -32,7 +32,7 @@ ReactDOM.render(
 - 组件中的props外界传入是组件的属性，数据流是自上而下，不可变，与实例化组件中传入的值一一对应，如：props = {name:'haha'};除了props.children 表示组件的子元素
 
 ### state状态
-1. 不能修改status状态，需要修改调用setState()；
+1. 不能修改status状态，需要修改调用setState();
 2. 组件自己的状态，一般与用户交互相关，可变
 
 ### style

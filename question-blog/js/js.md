@@ -26,7 +26,58 @@
 - 在子类里面直接调用父类；
 - 利用一个副本(创建一个父类原型对象)，
 ```js
+// 组合继承： 缺点： 调用了两次父类
+function Parent(value) {
+  this.val = value
+}
 
+Parent.prototype.getValue = function() {
+  console.log(this.val)
+}
+
+// 继承父类属性
+function Child(value) {
+  Parent.call(this, value);
+}
+
+// 继承原型对象上的属性；重写了原型，所以需要重写一下constructor
+Child.prototype = new Parent()
+Child.prototype.constructor= Child
+
+const child = new Child(1);
+
+child.getValue() // 1
+child instanceof Parent // true
 ```
 
+
+<!-- 寄生组合继承 -->
+```js
+// 子类继承父类的方法，只需要传入子类和父类，只需包装一个父类原型的副本，重写一下constructor属性；
+Child.prototype = Object.create(Parent.prototype, {
+  constructor: {
+    value: Child,
+    enumerable: false,
+    writable: true,
+    configurable: true
+  }
+})
+```
+
+```js
+class Parent {
+  constructor(value) {
+    this.val = value
+  }
+  getValue() {
+    console.log(this.val)
+  }
+}
+class Child extends Parent {
+  constructor(value) {
+    super(value)
+    this.val = value
+  }
+}
+```
 
