@@ -81,3 +81,20 @@ class Child extends Parent {
 }
 ```
 
+## Trim的实现
+考点：考察对正则的一个了解和使用，
+- 转译字符空白符 \s;
+- /g 全局匹配
+```js
+// 方法1
+String.propertype.trim = function() {
+  this.replace(/^\s+|\s$/g, '')
+}
+
+// 方法2
+String.propertype.trim = function() {
+  this.replace(/^\s+/,'').replace(/\s+$/,'');
+}
+
+```
+
