@@ -7,14 +7,39 @@
 
 ### 2、深拷贝和浅拷贝；
 #### 浅拷贝（只拷贝第一层）
-- ES6 api: Object.assign(obj);
-- 扩展运算符：{...obj};
+- ES6 api: Object.assign({}, obj);
+- 解构运算符：{...obj};
 
 #### 深拷贝（深度拷贝）
 - JSON.parse(JSON.stringify(obj));
-    - 1、对特殊数据类型拷贝会存在问题；function,稀疏数组，正则；
-    - 2、会修改函数的构造器（constructor);
-    - 3、对象循环引用拷贝会报错
+```js
+const obj = {
+    a: function aa () {
+        console.log(111)
+    },
+    b: [1,,2],
+    c: 1,
+    d: /^\s/,
+    e: new Date(),
+    f: NaN
+}
+const newObj = JSON.parse(JSON.stringify(obj)) 
+{
+    b: (3) [1, null, 2]
+    c: 1
+    d: {}
+    e: "2021-02-24T07:36:48.956Z"
+    f: null
+}
+```
+- 1、如果属性是函数类型会直接丢失这个属性
+- 2、稀梳数组会直接将空白项设置为null
+- 3、正则类型会转为{}
+- 4、时间类型会转为字符串
+- 5、NaN等特殊类型会转为null
+- 6、对象循环引用拷贝会报错
+- 7、如果属性是构造函数实例化的对象，会丢失constructor属性
+
 - 递归深拷贝的函数实现；
 特殊类型的判断和处理 Date, req, Array;
 递归处理对象；

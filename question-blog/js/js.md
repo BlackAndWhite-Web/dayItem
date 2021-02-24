@@ -88,7 +88,7 @@ class Child extends Parent {
 ```js
 // 方法1
 String.propertype.trim = function() {
-  this.replace(/^\s+|\s$/g, '')
+  this.replace(/^\s+|\s+$/g, '')
 }
 
 // 方法2
